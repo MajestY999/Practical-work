@@ -1,0 +1,113 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head>  
+        <meta charset="UTF-8">  
+        <title>Coffee blog</title>  
+        <style>  
+            body {  
+                font-family: Arial, sans-serif;  
+            }  
+            form {  
+                margin-bottom: 20px;  
+            }  
+            form div {  
+                margin-bottom: 10px;  
+            }  
+            table {  
+                width: 100%;  
+                border-collapse: collapse;  
+            }  
+            th, td {  
+                border: 1px solid black;  
+                padding: 8px;  
+                text-align: left;  
+            }  
+        </style>  
+    </head>  
+    <body>  
+        <h1>Coffee blog</h1>  
+        <form>
+            <div>  
+                <label for="name">Название напитка</label>  
+                <input type="text" id="name" name="title">  
+            </div>  
+             
+                <label for="type">Сорт кофе</label>  
+                <select name="sort" id="type">
+                    <option>Гватемала</option>  
+                    <option>Эфиопия</option>  
+                    <option>Колумбия</option>  
+                </select>  
+            </div>  
+            <div>  
+                <label>Крепость обжарки</label>  
+                <div>  
+                    <input type="radio" id="strong" name="roast" value="Крепкая">  
+                    <label for="strong">Крепкая</label>  
+                    <input type="radio" id="medium" name="roast" value="Средняя" checked>  
+                    <label for="medium">Средняя</label>  
+                    <input type="radio" id="light" name="roast" value="Легкая">  
+                    <label for="light">Легкая</label>  
+                </div>  
+            </div>  
+            <div>  
+                <label for="image">Изображение</label>  
+                <input type="text" id="image" placeholder="http://site.com/img.png">  
+            </div>  
+            <div>  
+                <label for="cost"><b>Стоимость напитка</b></label> 
+            <input type="number" id="cost" name="cost" placeholder="100">
+            </div>  
+            <div>  
+                <label for="description"><b>Описание</b></label>
+            <textarea id="description" name="description">Немного про напиток</textarea>  
+            </div>  
+            <input type= "submit" 
+            value="Добавить напиток">
+        `</form>  
+          
+        <table id="table">  
+            <thead>  
+                <tr>  
+                    <th>Изображение</th>  
+                    <th>Название</th>  
+                    <th>Сорт</th>  
+                    <th>Крепость обжарки</th>  
+                    <th>Стоимость</th>  
+                    <th>Описание</th>  
+                </tr>  
+            </thead>      
+        </table>  
+      
+        <script>  
+         const f = document.forms[0]; 
+    let tr = document.getElementById("table"); 
+    let t = tr; 
+        f.addEventListener("submit", (e) => { 
+            e.preventDefault(); 
+            let body = {}; 
+            for (let i = 0; i < f.elements.length; i++) { 
+                let tag = f[i]; 
+                if (tag.name) { 
+                    if (tag.type === "radio" && tag.checked) { 
+                        body[tag.name] = tag.value; 
+                    } else if (tag.type !== "radio") { 
+                        body[tag.name] = tag.value; 
+                    } 
+                } 
+            } 
+            console.log(body); 
+            let html = "<tr>"; 
+            html += `<td><img src="${body.image}" width="50" alt="${body.title}"></td>`; 
+            html += `<td>${body.title || ""}</td>`; 
+            html += `<td>${body.sort || ""}</td>`; 
+            html += `<td>${body.roast || ""}</td>`; 
+            html += `<td>${body.cost || ""}</td>`; 
+            html += `<td>${body.description || ""}</td>`; 
+            html += "</tr>" 
+            t.innerHTML += html; 
+        }) 
+    </script> 
+     
+ 
+     </html>
